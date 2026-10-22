@@ -1,0 +1,14 @@
+# trained artifacts (regenerate by running chatbot/train_chatbot.ipynb)
+chatbot/model/
+*.pkl
+*.h5
+
+# experiment run outputs you may not want to track
+raw_responses/
+
+# python / jupyter
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+*.pyc
