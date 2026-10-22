@@ -1,0 +1,8 @@
+# never publish the harmful prompts or raw model replies
+strongreject_small_dataset.csv
+prompts_work.csv
+results.csv
+raw_responses/
+
+# nano emergency-save artifacts (may contain the raw prompts)
+*.save
