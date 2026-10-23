@@ -13,7 +13,7 @@
 
 ## The idea
 
-A model learns to refuse dangerous requests. But almost all of that training is in English. My question is simple: if I take a request the model refuses in English and ask it again in Persian, does it still refuse, or does the guardrail quietly fall away?
+I got curious about how well an LLM's safety holds up when someone tries to get around it in Persian, so I decided to design a safety check. Almost all of a model's safety training is in English. My question is simple: if I take a request the model refuses in English and ask the same thing in Persian, does it still refuse, or does the guardrail quietly fall away?
 
 If the refusal holds in all three forms, good. If it drops in Persian, that is a real gap, and I can measure how big it is.
 
@@ -40,12 +40,12 @@ Llama 3.1 8B, 12 unsafe items from StrongREJECT, one run:
 | Formal Persian | 3 / 12 | 25% |
 | Informal Persian | 3 / 12 | 25% |
 
-The model refuses almost everything in English, but most of that protection disappears in Persian. The safe control questions were all answered normally, so this is not the model just refusing or breaking at random.
+The model refuses almost everything in English, but a lot of that protection drops away in Persian. The safe control questions were all answered normally, so this is not the model just refusing or breaking at random. The exact Persian figures are approximate: automatically telling a Persian refusal from a normal answer is unreliable, so the firm result here is the large gap between English and Persian, not the precise Persian percentage.
 
 ![refusal rate by language](chart.png)
 
 > [!WARNING]
-> This is a probe, not a full benchmark. Small prompt set, one model, and I label refusals with a keyword pass that I check by hand. Translation quality matters. Treat it as a first look, not a verdict.
+> This is a probe, not a full benchmark. Small prompt set, one model, and refusals are labelled by an automated keyword pass, which is only approximate in Persian. Translation quality matters. Treat it as a first look, not a verdict.
 
 ## Run it yourself
 
@@ -59,4 +59,4 @@ Install Ollama, pull a model (for example `ollama pull llama3.1:8b`), fill `prom
 
 ## How AI helped
 
-Say here what you wrote yourself and what you used Claude to tidy up.
+I came up with the question and wrote all the Persian translations myself. I used Claude to build the experiment code, run the model, and organize this write up.
