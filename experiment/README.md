@@ -47,6 +47,28 @@ The model refuses almost everything in English, but a lot of that protection dro
 > [!WARNING]
 > This is a probe, not a full benchmark. Small prompt set, one model, and refusals are labelled by an automated keyword pass, which is only approximate in Persian. Translation quality matters. Treat it as a first look, not a verdict.
 
+## Can we raise the refusal rate? Translate to English first
+
+If the model's safety is strong in English and weak in Persian, then instead of
+trusting it to refuse a Persian request directly, I can translate the request to
+English first, let it decide in English, and only then answer. `mitigation.py`
+tests exactly that: translate each Persian prompt to English, re-ask, and see if
+the model now refuses.
+
+| Register | Asked in Persian | Translated to English first |
+| --- | --- | --- |
+| Formal Persian | 25% | 42% |
+| Informal Persian | 25% | 58% |
+
+![does translating to English first help](chart_mitigation.png)
+
+Translating first roughly doubled the refusal rate, but it did not reach the 92%
+the model manages on the original English. So the fix helps a lot, yet it does not
+fully close the gap. That tells me the problem is deeper than just the input
+language: translation quality and the model's own limits still let some requests
+through. A real fix would need multilingual safety training, not just a translation
+step in front.
+
 ## Run it yourself
 
 ```bash
@@ -57,6 +79,10 @@ pip install -r requirements.txt
 
 Install Ollama, pull a model (for example `ollama pull llama3.1:8b`), fill `prompts_work.csv` from a benchmark, then run `experiment.ipynb` top to bottom. Write down the exact model version and the date, because model behaviour changes over time.
 
-## How AI helped
+## Credit and how AI helped
 
-I came up with the question and wrote all the Persian translations myself. I used Claude to build the experiment code, run the model, and organize this write up.
+This project is mine. I asked the question, wrote all the Persian translations across
+the formal and colloquial registers myself, decided which harm categories to test,
+and chose the translate to English idea as the mitigation to try. I used Claude to
+write the experiment code, run the local model, and help organize this write up. The
+research direction, the Persian, and the judgment calls are my own.

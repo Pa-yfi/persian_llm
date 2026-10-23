@@ -6,3 +6,5 @@ raw_responses/
 
 # nano emergency-save artifacts (may contain the raw prompts)
 *.save
+
+results_mitigation.csv
